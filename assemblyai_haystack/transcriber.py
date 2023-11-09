@@ -6,14 +6,8 @@ from enum import Enum
 from canals.serialization import default_to_dict, default_from_dict
 from haystack.preview import component, Document
 
-if TYPE_CHECKING:
-    import assemblyai
-
-class TranscriptFormat(Enum):
-    """Transcript format to use for the document reader."""
-
-    TEXT = "text"
-    """One document with the transcription text"""
+# if TYPE_CHECKING:
+import assemblyai
 
 
 @component
@@ -44,65 +38,33 @@ class AssemblyAITranscriber:
     def run(
         self,
         file_path: str,
-        transcript_format: TranscriptFormat = TranscriptFormat.TEXT,
-        speaker_labels: Optional[bool] = None,
-        iab_categories: Optional[bool] = None,
+        # transcript_format: TranscriptFormat = TranscriptFormat.TEXT,
         config: Optional[assemblyai.TranscriptionConfig] = None,
         ):
 
         self.file_path = file_path
-        self.transcript_format = transcript_format
+        # self.transcript_format = transcript_format
 
         # Instantiating the Transcriber will raise a ValueError if no API key is set.
-        self.transcriber = assemblyai.Transcriber(config=config, speaker_labels=speaker_labels, iab_categories=iab_categories)
-    
+        self.transcriber = assemblyai.Transcriber(config=config)
         transcript = self.transcriber.transcribe(self.file_path)
+
+        ''' Not doing TypeChecking here because there is only one type of Transcript Format '''
 
         if transcript.error:
             raise ValueError(f"Could not transcribe file: {transcript.error}")
 
-        # transcript of the audio or the video file is returned by default
-        if self.transcript_format == TranscriptFormat.TEXT:
-            transcription_doc = {"transcription": [
-                Document(text=transcript.text, 
-                         metadata=transcript.json_response)
-                ]}
-            
-            ''' Speaker labels or the iab categories can be turned on or off '''
-            if self.speaker_labels:
-                speaker_labels_doc = {"speakers" : [
-                    Document(text=utterance.text, 
-                             metadata={"speaker": utterance.speaker, 
-                                       "details":utterance.dict(exclude={"text"})})
-                    for utterance in transcript.utterances
-                ]}
-            else:
-                speaker_labels_doc = {"speakers" : []}
-                
-            """This is what the "labels" would look like
-                            
-            [IABLabelResult(relevance=0.5121853351593018, label='Education>LanguageLearning'), 
-            IABLabelResult(relevance=0.2464590072631836, label='Technology&Computing>ArtificialIntelligence'), 
-            IABLabelResult(relevance=0.02066299505531788, label='FamilyAndRelationships>Parenting>ParentingBabiesAndToddlers')]"""
-            if self.iab_categories:
-                iab_categories_doc = {"topics" : [
-                    Document(text=result.text, 
-                             metadata={"labels": result.labels, 
-                                       "details":result.dict(exclude={"text"})})
-                    for result in transcript.iab_categories.results
-                             ]}
-            else:
-                iab_categories_doc = {"topics" : []}
+        transcript_json = transcript.json_response
 
-        else:
-            raise ValueError("Unknown transcript format.")
+        ''' Higher level keys cannot be used in the metadata '''
+        transcript_json["transcription_id"] = transcript_json.pop("id")
+        transcript_json["transcription_text"] = transcript_json.pop("text")
 
-        # ToDos:
-        # add utterance number to metadata?
-        # think of different ways to return the speaker diarization output
-        # based on which models are running, change key in the dictionary
+        transcription_doc = {"transcription": [
+            Document(text=transcript.text, 
+                        metadata=transcript_json)
+            ]}
+    
 
-        # speech rec., speaker diarization, topic detection
-
-        results = {**transcription_doc, **speaker_labels_doc, **iab_categories_doc} 
+        results = {**transcription_doc} 
         return results
