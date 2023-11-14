@@ -1,7 +1,7 @@
 import os
 
 from assemblyai_haystack.transcriber import AssemblyAITranscriber
-from haystack.preview.document_stores import MemoryDocumentStore
+from haystack.preview.document_stores.in_memory import InMemoryDocumentStore
 from haystack.preview import Pipeline
 from haystack.preview.components.writers import DocumentWriter
 
@@ -9,12 +9,12 @@ ASSEMBLYAI_API_KEY = os.environ.get("ASSEMBLYAI_API_KEY")
 
 ## Use AssemblyAITranscriber in a pipeline
 
-document_store = MemoryDocumentStore()
+document_store = InMemoryDocumentStore()
 
 indexing = Pipeline()
 indexing.add_component("transcriber", AssemblyAITranscriber(api_key=ASSEMBLYAI_API_KEY))
 indexing.add_component("writer", DocumentWriter(document_store))
-indexing.connect("transcriber", "writer")
+indexing.connect("transcriber.transcription", "writer.documents")
 indexing.run({"transcriber": {"file_path": "https://github.com/AssemblyAI-Examples/audio-examples/raw/main/20230607_me_canadian_wildfires.mp3"}})
 
 print("Indexed Document Count:", document_store.count_documents())
