@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Dict, List, Any, Optional, Union
+from typing import Dict, List, Any, Optional
 from pathlib import Path
 
 from enum import Enum
@@ -6,16 +6,14 @@ from enum import Enum
 from canals.serialization import default_to_dict, default_from_dict
 from haystack.preview import component, Document
 
-# if TYPE_CHECKING:
 import assemblyai
-
 
 @component
 class AssemblyAITranscriber:
     def __init__(
         self,
         *,
-        api_key: Optional[str] = None,
+        api_key: Optional[str] = None
     ):
         try:
             import assemblyai
@@ -34,16 +32,14 @@ class AssemblyAITranscriber:
     def from_dict(cls, data: Dict[str, Any]) -> "AssemblyAITranscriber":
         return default_from_dict(cls, data)
         
-    @component.output_types(transcription=List[Document])    
+    @component.output_types(transcipt_object=Dict[str, Any], transcription=List[Document], summary=List[Document], speakers=List[Document])   
     def run(
         self,
         file_path: str,
-        # transcript_format: TranscriptFormat = TranscriptFormat.TEXT,
         config: Optional[assemblyai.TranscriptionConfig] = None,
         ):
 
         self.file_path = file_path
-        # self.transcript_format = transcript_format
 
         # Instantiating the Transcriber will raise a ValueError if no API key is set.
         self.transcriber = assemblyai.Transcriber(config=config)
@@ -60,11 +56,28 @@ class AssemblyAITranscriber:
         transcript_json["transcription_id"] = transcript_json.pop("id")
         transcript_json["transcription_text"] = transcript_json.pop("text")
 
-        transcription_doc = {"transcription": [
-            Document(content=transcript.text, 
-                        meta=transcript_json)
-            ]}
-    
+        # create summarization result doc
+        if config.summarization:
+            summarization_doc = {"summarization": [
+                            Document(content=transcript.summary)
+                            ]}
+            transcript_json["transcription_text"] = transcript_json.pop("summary")
 
-        results = {**transcription_doc} 
+        # create speaker labels result doc
+        if config.speaker_labels:
+            speakers_doc = {"speaker_labels": [
+                Document(content=utterance.text, 
+                         meta={"speaker": utterance.speaker}) for utterance in transcript.utterances
+                         ]}
+            
+            
+            transcript_json["transcription_text"] = transcript_json.pop("utterances")
+
+        # create transcription result doc 
+        transcription_doc = {"transcription": [
+            Document(content=transcript.text)
+            ]}
+        
+
+        results = {**transcript_json, **transcription_doc, **summarization_doc, **speakers_doc} 
         return results
