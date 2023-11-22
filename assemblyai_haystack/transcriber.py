@@ -6,7 +6,7 @@ from enum import Enum
 from canals.serialization import default_to_dict, default_from_dict
 from haystack.preview import component, Document
 
-import assemblyai
+import assemblyai as aai
 
 @component
 class AssemblyAITranscriber:
@@ -36,13 +36,16 @@ class AssemblyAITranscriber:
     def run(
         self,
         file_path: str,
-        config: Optional[assemblyai.TranscriptionConfig] = None,
+        summarization: Optional[bool] = False,
+        speaker_labels: Optional[bool] = False
         ):
 
         self.file_path = file_path
 
+        config = aai.TranscriptionConfig(speaker_labels=speaker_labels,summarization=summarization)
+
         # Instantiating the Transcriber will raise a ValueError if no API key is set.
-        self.transcriber = assemblyai.Transcriber(config=config)
+        self.transcriber = aai.Transcriber(config=config)
         transcript = self.transcriber.transcribe(self.file_path)
 
         ''' Not doing TypeChecking here because there is only one type of Transcript Format '''
@@ -62,6 +65,8 @@ class AssemblyAITranscriber:
                             Document(content=transcript.summary)
                             ]}
             transcript_json["transcription_text"] = transcript_json.pop("summary")
+        else:
+            summarization_doc = {}
 
         # create speaker labels result doc
         if config.speaker_labels:
@@ -69,13 +74,17 @@ class AssemblyAITranscriber:
                 Document(content=utterance.text, 
                          meta={"speaker": utterance.speaker}) for utterance in transcript.utterances
                          ]}
+        else:
+            speakers_doc = {}
+
             
             
             transcript_json["transcription_text"] = transcript_json.pop("utterances")
 
         # create transcription result doc 
         transcription_doc = {"transcription": [
-            Document(content=transcript.text)
+            Document(content=transcript.text,
+                     meta={"transcript_id":transcript.id, "audio_url":transcript.audio_url})
             ]}
         
 
