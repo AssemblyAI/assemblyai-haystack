@@ -32,7 +32,7 @@ class AssemblyAITranscriber:
     def from_dict(cls, data: Dict[str, Any]) -> "AssemblyAITranscriber":
         return default_from_dict(cls, data)
         
-    @component.output_types(transcipt_object=Dict[str, Any], transcription=List[Document], summary=List[Document], speakers=List[Document])   
+    @component.output_types(transcipt_object=Dict[str, Any], transcription=List[Document], summarization=List[Document], speaker_labels=List[Document])   
     def run(
         self,
         file_path: str,
@@ -87,6 +87,5 @@ class AssemblyAITranscriber:
                      meta={"transcript_id":transcript.id, "audio_url":transcript.audio_url})
             ]}
         
-
-        results = {**transcript_json, **transcription_doc, **summarization_doc, **speakers_doc} 
+        results = {"transcript_json": transcript_json, **transcription_doc, **summarization_doc, **speakers_doc} 
         return results
