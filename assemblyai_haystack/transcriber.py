@@ -1,6 +1,6 @@
 from typing import Dict, List, Any, Optional
 
-from haystack import component, Document, default_to_dict, default_from_dict
+from haystack import component, Document
 from haystack.lazy_imports import LazyImport
 
 with LazyImport(message="Run 'pip install assemblyai'") as assemblyai_import:
