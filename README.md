@@ -6,9 +6,9 @@ To use it, you should have the assemblyai python package installed, and the envi
 
 More info about AssemblyAI:
 
-* (Website)[https://www.assemblyai.com/]
-* (Get a Free API key)[https://www.assemblyai.com/dashboard/signup]
-* (AssemblyAI API Docs)[https://www.assemblyai.com/docs]
+* [Website](https://www.assemblyai.com/)
+* [Get a Free API key](https://www.assemblyai.com/dashboard/signup)
+* [AssemblyAI API Docs](https://www.assemblyai.com/docs)
 
 ## Installation
 
@@ -23,7 +23,7 @@ pip install assemblyai
 ## Usage
 
 The `AssemblyAITranscriber` needs to be initialized with the AssemblyAI API key. 
-The `run` function needs at least the file_path argument. Audio files can be specified as an URL or a local file path.]
+The `run` function needs at least the file_path argument. Audio files can be specified as an URL or a local file path.
 You can also specify whether you want summarization and speaker diarization results in the `run` function.
 
 ```
@@ -64,8 +64,9 @@ The results of the transcription, summarization and speaker diarization are retu
 
 The metadata of the transcription document contains the transcription ID and url of the uploaded audio file.
 
-docs[0].metadata
+```
 # {'transcript_id': '	73089e32-...-4ae9-97a4-eca7fe20a8b1',
 #  'audio_url': 'https://storage.googleapis.com/aai-docs-samples/nbc.mp3',
 # }
+```
   
