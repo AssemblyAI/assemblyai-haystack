@@ -1,9 +1,9 @@
 import os
 
 from assemblyai_haystack.transcriber import AssemblyAITranscriber
-from haystack.preview.document_stores.in_memory import InMemoryDocumentStore
-from haystack.preview import Pipeline
-from haystack.preview.components.writers import DocumentWriter
+from haystack.document_stores.in_memory import InMemoryDocumentStore
+from haystack import Pipeline
+from haystack.components.writers import DocumentWriter
 
 ASSEMBLYAI_API_KEY = os.environ.get("ASSEMBLYAI_API_KEY")
 
