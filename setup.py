@@ -6,8 +6,8 @@ long_description = (Path(__file__).parent / "README.md").read_text()
 
 
 setup(
-    name="assemblyai",
-    version="0.20.2",
+    name="assemblyai-haystack",
+    version="0.1.0",
     description="AssemblyAI Haystack Integration",
     author="AssemblyAI",
     author_email="marketing@assemblyai.com",
