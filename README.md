@@ -26,7 +26,7 @@ First, you need to install the assemblyai python package.
 
 You can find more info about it inside the assemblyai-python-sdk GitHub repo.
 
-```
+```bash
 pip install assemblyai
 ```
 
@@ -36,7 +36,7 @@ The `AssemblyAITranscriber` needs to be initialized with the AssemblyAI API key.
 The `run` function needs at least the file_path argument. Audio files can be specified as an URL or a local file path.
 You can also specify whether you want summarization and speaker diarization results in the `run` function.
 
-```
+```python
 from assemblyai_haystack.transcriber import AssemblyAITranscriber
 from haystack.document_stores.in_memory import InMemoryDocumentStore
 from haystack import Pipeline
@@ -74,7 +74,7 @@ The results of the transcription, summarization and speaker diarization are retu
 
 The metadata of the transcription document contains the transcription ID and url of the uploaded audio file.
 
-```
+```bash
 # {'transcript_id': '	73089e32-...-4ae9-97a4-eca7fe20a8b1',
 #  'audio_url': 'https://storage.googleapis.com/aai-docs-samples/nbc.mp3',
 # }
