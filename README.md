@@ -74,9 +74,10 @@ The results of the transcription, summarization and speaker diarization are retu
 
 The metadata of the transcription document contains the transcription ID and url of the uploaded audio file.
 
-```bash
-{'transcript_id': '	73089e32-...-4ae9-97a4-eca7fe20a8b1',
-'audio_url': 'https://storage.googleapis.com/aai-docs-samples/nbc.mp3',
+```json
+{
+   "transcript_id":"73089e32-...-4ae9-97a4-eca7fe20a8b1",
+   "audio_url":"https://storage.googleapis.com/aai-docs-samples/nbc.mp3"
 }
 ```
   
