@@ -12,7 +12,7 @@
 
 The AssemblyAI Audio Transcript Loader allows to transcribe audio files with the AssemblyAI API and loads the transcribed text into documents.
 
-To use it, you should have the assemblyai python package installed, and the environment variable ASSEMBLYAI_API_KEY set with your API key. Alternatively, the API key can also be passed as an argument.
+To use it, you should have the environment variable ASSEMBLYAI_API_KEY set with your API key. Alternatively, the API key can also be passed as an argument.
 
 More info about AssemblyAI:
 
@@ -22,13 +22,13 @@ More info about AssemblyAI:
 
 ## Installation
 
-First, you need to install the assemblyai python package.
-
-You can find more info about it inside the assemblyai-python-sdk GitHub repo.
+First, install the assemblyai-haystack python package.
 
 ```bash
-pip install assemblyai
+pip install assemblyai-haystack
 ```
+
+This package installs and uses the AssemblyAI Python SDK. You can find more info about the SDK at the [assemblyai-python-sdk GitHub repo]([https://www.assemblyai.com/docs](https://github.com/AssemblyAI/assemblyai-python-sdk)).
 
 ## Usage
 
