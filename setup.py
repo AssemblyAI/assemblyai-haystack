@@ -13,7 +13,7 @@ setup(
     author_email="marketing@assemblyai.com",
     packages=find_packages(),
     install_requires=[
-        "haystack-ai>=0.137.0",
+        "haystack-ai",
         "assemblyai>=0.18.0",
     ],
     extras_require={

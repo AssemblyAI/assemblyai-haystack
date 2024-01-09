@@ -2,7 +2,12 @@
 
 ---
 
+
+[![CI Passing](https://github.com/AssemblyAI/assemblyai-python-sdk/actions/workflows/test.yml/badge.svg)](https://github.com/AssemblyAI/assemblyai-haystack/actions/workflows/test.yml)
 [![GitHub License](https://img.shields.io/github/license/AssemblyAI/assemblyai-haystack)](https://github.com/AssemblyAI/assemblyai-haystack/blob/main/LICENSE)
+[![PyPI version](https://badge.fury.io/py/assemblyai-haystack.svg)](https://badge.fury.io/py/assemblyai-haystack)
+[![PyPI Python Versions](https://img.shields.io/pypi/pyversions/assemblyai-haystack)](https://pypi.python.org/pypi/assemblyai-haystack/)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/assemblyai-haystack)
 [![AssemblyAI Twitter](https://img.shields.io/twitter/follow/AssemblyAI?label=%40AssemblyAI&style=social)](https://twitter.com/AssemblyAI)
 [![AssemblyAI YouTube](https://img.shields.io/youtube/channel/subscribers/UCtatfZMf-8EkIwASXM4ts0A)](https://www.youtube.com/@AssemblyAI)
 [![Discord](https://img.shields.io/discord/875120158014853141?logo=discord&label=Discord&link=https%3A%2F%2Fdiscord.com%2Fchannels%2F875120158014853141&style=social)
@@ -10,9 +15,9 @@
 
 # AssemblyAI Audio Transcript Loader
 
-The AssemblyAI Audio Transcript Loader allows to transcribe audio files with the AssemblyAI API and loads the transcribed text into documents.
+The AssemblyAI Audio Transcript Loader allows you to transcribe audio files with the AssemblyAI API and load the transcribed text into Haystack documents.
 
-To use it, you should have the assemblyai python package installed, and the environment variable ASSEMBLYAI_API_KEY set with your API key. Alternatively, the API key can also be passed as an argument.
+To use this package, you should have the environment variable ASSEMBLYAI_API_KEY set with your API key. Alternatively, the API key can also be passed as an argument while adding a component (see usage code example below).
 
 More info about AssemblyAI:
 
@@ -22,13 +27,13 @@ More info about AssemblyAI:
 
 ## Installation
 
-First, you need to install the assemblyai python package.
-
-You can find more info about it inside the assemblyai-python-sdk GitHub repo.
+First, install the assemblyai-haystack python package.
 
 ```bash
-pip install assemblyai
+pip install assemblyai-haystack
 ```
+
+This package installs and uses the AssemblyAI Python SDK. You can find more info about the SDK at the [assemblyai-python-sdk GitHub repo]([https://www.assemblyai.com/docs](https://github.com/AssemblyAI/assemblyai-python-sdk)).
 
 ## Usage
 
@@ -37,6 +42,8 @@ The `run` function needs at least the file_path argument. Audio files can be spe
 You can also specify whether you want summarization and speaker diarization results in the `run` function.
 
 ```python
+import os
+
 from assemblyai_haystack.transcriber import AssemblyAITranscriber
 from haystack.document_stores.in_memory import InMemoryDocumentStore
 from haystack import Pipeline
