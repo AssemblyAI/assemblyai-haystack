@@ -15,9 +15,9 @@
 
 # AssemblyAI Audio Transcript Loader
 
-The AssemblyAI Audio Transcript Loader allows to transcribe audio files with the AssemblyAI API and loads the transcribed text into documents.
+The AssemblyAI Audio Transcript Loader allows you to transcribe audio files with the AssemblyAI API and load the transcribed text into Haystack documents.
 
-To use it, you should have the environment variable ASSEMBLYAI_API_KEY set with your API key. Alternatively, the API key can also be passed as an argument.
+To use this package, you should have the environment variable ASSEMBLYAI_API_KEY set with your API key. Alternatively, the API key can also be passed as an argument while adding a component (see usage code example below).
 
 More info about AssemblyAI:
 
@@ -42,6 +42,8 @@ The `run` function needs at least the file_path argument. Audio files can be spe
 You can also specify whether you want summarization and speaker diarization results in the `run` function.
 
 ```python
+import os
+
 from assemblyai_haystack.transcriber import AssemblyAITranscriber
 from haystack.document_stores.in_memory import InMemoryDocumentStore
 from haystack import Pipeline
