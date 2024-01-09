@@ -1,2 +1,2 @@
-haystack-ai>=0.137.0
+haystack-ai
 assemblyai>=0.18.0
