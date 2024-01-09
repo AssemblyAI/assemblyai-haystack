@@ -2,7 +2,12 @@
 
 ---
 
+
+[![CI Passing](https://github.com/AssemblyAI/assemblyai-python-sdk/actions/workflows/test.yml/badge.svg)](https://github.com/AssemblyAI/assemblyai-haystack/actions/workflows/test.yml)
 [![GitHub License](https://img.shields.io/github/license/AssemblyAI/assemblyai-haystack)](https://github.com/AssemblyAI/assemblyai-haystack/blob/main/LICENSE)
+[![PyPI version](https://badge.fury.io/py/assemblyai-haystack.svg)](https://badge.fury.io/py/assemblyai-haystack)
+[![PyPI Python Versions](https://img.shields.io/pypi/pyversions/assemblyai-haystack)](https://pypi.python.org/pypi/assemblyai-haystack/)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/assemblyai-haystack)
 [![AssemblyAI Twitter](https://img.shields.io/twitter/follow/AssemblyAI?label=%40AssemblyAI&style=social)](https://twitter.com/AssemblyAI)
 [![AssemblyAI YouTube](https://img.shields.io/youtube/channel/subscribers/UCtatfZMf-8EkIwASXM4ts0A)](https://www.youtube.com/@AssemblyAI)
 [![Discord](https://img.shields.io/discord/875120158014853141?logo=discord&label=Discord&link=https%3A%2F%2Fdiscord.com%2Fchannels%2F875120158014853141&style=social)
