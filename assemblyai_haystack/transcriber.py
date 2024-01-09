@@ -7,7 +7,6 @@ import assemblyai as aai
 @component
 class AssemblyAITranscriber:
     def __init__(self, *, api_key: Optional[str] = None):
-        assemblyai_import.check()
 
         if api_key is not None:
             aai.settings.api_key = api_key
