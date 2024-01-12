@@ -13,11 +13,11 @@
 [![Discord](https://img.shields.io/discord/875120158014853141?logo=discord&label=Discord&link=https%3A%2F%2Fdiscord.com%2Fchannels%2F875120158014853141&style=social)
 ](https://assemblyai.com/discord)
 
-# AssemblyAI Audio Transcript Loader
+# AssemblyAITranscriber
 
-The AssemblyAI Audio Transcript Loader allows you to transcribe audio files with the AssemblyAI API and load the transcribed text into Haystack documents.
+This custom component is designed for using AssemblyAI with [Haystack (2.x)](https://github.com/deepset-ai/haystack), an open source Python framework for building custom LLM applications. It seamlessly integrates with the AssemblyAI API and enhances Haystack's capabilities.
 
-To use this package, you should have the environment variable ASSEMBLYAI_API_KEY set with your API key. Alternatively, the API key can also be passed as an argument while adding a component (see usage code example below).
+The AssemblyAITranscriber goes beyond simple audio transcription; it also offers features such as summarization and speaker diarization. This allows you to not only convert audio to text but also obtain concise summaries and identify speakers in the conversation. To use AssemblyAITranscriber, you should pass your `ASSEMBLYAI_API_KEY` as an argument while adding a component (see usage code example below). 
 
 More info about AssemblyAI:
 
